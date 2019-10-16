@@ -1,7 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 
-let base = path.join('/Users/sagit','');
+function list(dir){
+    let base = path.join('/Users/sagit',dir);
+    let filelist = fs.readdirSync(base,{withFileTypes: true});
+    return filelist;
+}
 
-let filelist = fs.readdirSync(base,{withFileTypes: true});
-console.log(filelist);
+export default list;

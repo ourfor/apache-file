@@ -1,8 +1,8 @@
 const express = require("express");
 const webpack = require("webpack");
+const bodyParser = require('body-parser');
 const webpackDevMiddleware = require("webpack-dev-middleware");
-import login from './middleware/login';
-import dashboard from './middleware/dashboard';
+import list from './middleware/filelist';
 import history from 'connect-history-api-fallback';
 
 const app = express();
@@ -26,18 +26,27 @@ app.use('/',webpackDevMiddleware(compiler,{
     publicPath: '/'
 }))
 
+
+
 //使用热模块替换
 app.use(require("webpack-hot-middleware")(compiler));
 
+app.post('/dir',bodyParser(),(req,res) => {
+    res.contentType = "application/json;charset=utf-8";
+    let data = list(req.body.path);
+    console.log(data);
+    console.dir(data);
+    res.end(JSON.stringify(data));
+});
 
-// app.post('/login',bodyParser(),(req,res)=>{
-//     res.contentType("text/html;charset=utf-8");
-//     console.log(req.body.username);
-//     console.log(req.body.password);
-//     res.end("哈哈");
-// })
-login(app);
-dashboard(app);
+app.post('/login',bodyParser(),(req,res)=>{
+    res.contentType("text/html;charset=utf-8");
+    console.log(req.body.username);
+    console.log(req.body.password);
+    res.end("哈哈");
+})
+
+
 
 // 将文件 serve 到端口 3000
 app.listen(3000,function(){
