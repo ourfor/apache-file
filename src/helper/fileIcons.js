@@ -1,9 +1,5 @@
-import { FileIcons, IconPack } from '../models/index';
-
-/**
- * Defines file icons
- */
-export const fileIcons: FileIcons = {
+const IconPack = {};
+module.exports = {
     defaultIcon: { name: 'file' },
     icons: [
         { name: 'html', fileExtensions: ['html', 'htm', 'xhtml', 'html_vm', 'asp'] },
@@ -105,25 +101,24 @@ export const fileIcons: FileIcons = {
             name: 'routing',
             fileExtensions: ['routing.ts', 'routing.tsx', 'routing.js', 'routing.jsx', 'routes.ts', 'routes.tsx', 'routes.js', 'routes.jsx'],
             fileNames: ['router.js', 'router.jsx', 'router.ts', 'router.tsx', 'routes.js', 'routes.jsx', 'routes.ts', 'routes.tsx'],
-            enabledFor: [IconPack.Angular, IconPack.Ngrx, IconPack.React, IconPack.Redux, IconPack.Vue, IconPack.Vuex]
         },
         {
             name: 'redux-action',
             fileExtensions: ['action.js', 'actions.js', 'action.ts', 'actions.ts'],
             fileNames: ['action.js', 'actions.js', 'action.ts', 'actions.ts'],
-            enabledFor: [IconPack.Redux]
+            
         },
         {
             name: 'redux-reducer',
             fileExtensions: ['reducer.js', 'reducers.js', 'reducer.ts', 'reducers.ts'],
             fileNames: ['reducer.js', 'reducers.js', 'reducer.ts', 'reducers.ts'],
-            enabledFor: [IconPack.Redux]
+            
         },
         {
             name: 'redux-store',
             fileExtensions: ['store.js', 'store.ts'],
             fileNames: ['store.js', 'store.ts'],
-            enabledFor: [IconPack.Redux]
+            
         },
         {
             name: 'settings',
@@ -428,29 +423,24 @@ export const fileIcons: FileIcons = {
             name: 'angular',
             fileExtensions: ['module.ts', 'module.js', 'ng-template'],
             fileNames: ['angular-cli.json', '.angular-cli.json', 'angular.json'],
-            enabledFor: [IconPack.Angular, IconPack.Ngrx]
         },
         {
             name: 'angular-component',
             fileExtensions: ['component.ts', 'component.js'],
-            enabledFor: [IconPack.Angular, IconPack.Ngrx]
         },
-        { name: 'angular-guard', fileExtensions: ['guard.ts', 'guard.js'], enabledFor: [IconPack.Angular, IconPack.Ngrx] },
-        { name: 'angular-service', fileExtensions: ['service.ts', 'service.js'], enabledFor: [IconPack.Angular, IconPack.Ngrx] },
+        { name: 'angular-guard', fileExtensions: ['guard.ts', 'guard.js'], },
+        { name: 'angular-service', fileExtensions: ['service.ts', 'service.js'], },
         {
             name: 'angular-pipe',
             fileExtensions: ['pipe.ts', 'pipe.js', 'filter.js'],
-            enabledFor: [IconPack.Angular, IconPack.Ngrx]
         },
         {
             name: 'angular-directive',
             fileExtensions: ['directive.ts', 'directive.js'],
-            enabledFor: [IconPack.Angular, IconPack.Ngrx]
         },
         {
             name: 'angular-resolver',
             fileExtensions: ['resolver.ts', 'resolver.js'],
-            enabledFor: [IconPack.Angular, IconPack.Ngrx]
         },
         { name: 'puppet', fileExtensions: ['pp'] },
         { name: 'elixir', fileExtensions: ['ex', 'exs', 'eex', 'leex'] },
@@ -727,11 +717,11 @@ export const fileIcons: FileIcons = {
         { name: 'code-climate', fileNames: ['.codeclimate.yml'], light: true },
         { name: 'prettier', fileNames: ['.prettierrc', 'prettier.config.js', '.prettierrc.js', '.prettierrc.json', '.prettierrc.yaml', '.prettierrc.yml', '.prettierignore'] },
         { name: 'nodemon', fileNames: ['nodemon.json', 'nodemon-debug.json'] },
-        { name: 'ngrx-reducer', fileExtensions: ['reducer.ts', 'rootReducer.ts'], enabledFor: [IconPack.Ngrx] },
-        { name: 'ngrx-state', fileExtensions: ['state.ts'], enabledFor: [IconPack.Ngrx] },
-        { name: 'ngrx-actions', fileExtensions: ['actions.ts'], enabledFor: [IconPack.Ngrx] },
-        { name: 'ngrx-effects', fileExtensions: ['effects.ts'], enabledFor: [IconPack.Ngrx] },
-        { name: 'ngrx-entity', fileNames: ['.entity'], enabledFor: [IconPack.Ngrx] },
+        { name: 'ngrx-reducer', fileExtensions: ['reducer.ts', 'rootReducer.ts'],},
+        { name: 'ngrx-state', fileExtensions: ['state.ts'], },
+        { name: 'ngrx-actions', fileExtensions: ['actions.ts'], },
+        { name: 'ngrx-effects', fileExtensions: ['effects.ts'], },
+        { name: 'ngrx-entity', fileNames: ['.entity'], },
         { name: 'webhint', fileNames: ['.hintrc'] },
         { name: 'browserlist', fileNames: ['browserslist', '.browserslistrc'], light: true },
         { name: 'crystal', fileExtensions: ['cr', 'ecr'], light: true },

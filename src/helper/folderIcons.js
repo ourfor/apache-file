@@ -1,9 +1,5 @@
-import { FolderTheme, IconPack } from '../models/index';
-
-/**
- * Defines folder icons
- */
-export const folderIcons: FolderTheme[] = [
+const IconPack = {};
+module.exports = [
     {
         name: 'specific',
         defaultIcon: { name: 'folder' },

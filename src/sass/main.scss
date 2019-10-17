@@ -6,3 +6,66 @@ h1 {
     font-weight: $font-weight;
     color: blueviolet;
 }
+
+div.file-list {
+    ul.file-list {
+    list-style: none;
+    background-color: #252526;
+    color: #cccccc;
+    font-family: 'Dank Mono';
+    max-width: 400px;
+    max-height: 600px;
+    overflow-y: scroll;
+    padding: 5px 0 10px;
+
+    li {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-left: 10px;
+
+        &:hover {
+            cursor: pointer;
+            background: #4b5153;
+        }
+
+        &>span{
+            display: inline-block;
+            line-height: 100%;
+        }
+
+        &>span.name{
+            padding-left: 10px;
+        }
+
+        img.icon {
+            width: 25px;
+            height: 25px;
+        }
+    }
+
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 5px;
+        background: #252526;
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        background: rgba(167, 173, 173, 0.31);
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+
+        &:hover{
+            background: rgba(167, 173, 173, 0.67);
+        }
+    }
+    ::-webkit-scrollbar-track {
+        border-radius: 3px;
+        background: transparent;
+        box-shadow: inset 0 0 5px rgba(0,0,0,0.08);
+    }
+}
+
+

@@ -1,9 +1,5 @@
-import { LanguageIcon } from '../models';
-
-/**
- * Defines icons for language ids
- */
-export const languageIcons: LanguageIcon[] = [
+const IconPack = {};
+module.exports = [
     { icon: { name: 'git' }, ids: ['git', 'git-commit', 'git-rebase'] },
     { icon: { name: 'c' }, ids: ['c', 'objective-c'] },
     { icon: { name: 'yaml' }, ids: ['yaml'] },
