@@ -4,10 +4,21 @@ import fileMap from './data/fileMap.json';
 import folderMap from './data/folderMap.json';
 import langMap from './data/langMap.json';
 
-let data = {
-	path: '/Desktop',
-	pathNew: '/Desktop'
+import {createStore} from 'redux';
+
+function filePath(state = {path: '/Desktop',newPath: '/Desktop'},action){
+	console.log(state);
+	switch(action.type){
+		case 'update':
+			return state.path + action.path;
+		case 'uplevel':
+			return state.path + "/..";
+		default:
+			return state.path
+	}
 }
+
+let store = createStore(filePath);
 
 class Index extends Component {
 
@@ -17,13 +28,27 @@ class Index extends Component {
 			now: new Date(),
 			isLoaded: false,
 			ul: React.createRef(),
-			path: '',
+			path: '/Desktop',
+			pathNew: '/Desktop'
 		};
 	}
 
+	updatePath(path){
+		this.setState(state => {
+			return {pathNew: path};
+		});
+	}
+
+	stop(path){
+		this.setState(state => {
+			return {path}
+		});
+	}
+
 	componentWillMount(){
+		let path = this.state.path;
+		console.log(path);
 		console.log("will");
-		let path = data.path;
 		$.post('/dir',{path},data => {
 			this.setState({
 				isLoaded: true,
@@ -33,15 +58,13 @@ class Index extends Component {
 	}
 
 	componentWillUpdate(){
-		let path = data.pathNew;
-		console.log(path);
-		if(path!==undefined&&path!==data.path){
+		let path = store.getState();
+		if(path!==undefined&&path!==this.state.path){
 			$.post('/dir',{path},data => {
 				this.setState({
 					files: data.children,
 				});
-				data.path = this.data.base;
-				console.log(data);
+				this.stop(data.base)
 			},'json')
 		}
 				
@@ -59,13 +82,12 @@ class Index extends Component {
 				path = $dom.parent().parent().data('path');
 			}
 		}
-		
-		console.log(this.data);
-		let pathNew = `${data.path}/${path}`;
-		data.pathNew = pathNew;
-		this.setState({
-			pathNew
-		});
+		store.dispatch({type: 'update',path: `/${path}`,})
+		console.log(store.getState());
+
+		// this.setState({
+		// 	isLoaded: false
+		// })
 
 		e.cancelBubble = true;
 		e.stopPropagation();
