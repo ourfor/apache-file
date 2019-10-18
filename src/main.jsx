@@ -6,15 +6,27 @@ import langMap from './data/langMap.json';
 
 import {createStore} from 'redux';
 
-function filePath(state = {path: '/Desktop',newPath: '/Desktop'},action){
-	console.log(state);
+function filePath(
+	state = {
+				path: '/Desktop',
+				newPath: '/Desktop',
+				uplevel: [] 
+			},action){
+    let uplevel;
 	switch(action.type){
 		case 'update':
-			return state.path + action.path;
+			uplevel = state.uplevel;
+			uplevel.push(state.path);
+			return {path: state.path,newPath: `${state.path}/${action.path}`,uplevel};
 		case 'uplevel':
-			return state.path + "/..";
+			uplevel = state.uplevel;
+			let newPath = uplevel.pop();
+			return {path: state.path,newPath ,uplevel};
+		case 'stop': 
+			uplevel = state.uplevel;
+			return {path: state.newPath,newPath: state.newPath,uplevel};
 		default:
-			return state.path
+			return state;
 	}
 }
 
@@ -28,27 +40,11 @@ class Index extends Component {
 			now: new Date(),
 			isLoaded: false,
 			ul: React.createRef(),
-			path: '/Desktop',
-			pathNew: '/Desktop'
 		};
 	}
 
-	updatePath(path){
-		this.setState(state => {
-			return {pathNew: path};
-		});
-	}
-
-	stop(path){
-		this.setState(state => {
-			return {path}
-		});
-	}
-
 	componentWillMount(){
-		let path = this.state.path;
-		console.log(path);
-		console.log("will");
+		let path = store.getState().path;
 		$.post('/dir',{path},data => {
 			this.setState({
 				isLoaded: true,
@@ -58,13 +54,16 @@ class Index extends Component {
 	}
 
 	componentWillUpdate(){
-		let path = store.getState();
-		if(path!==undefined&&path!==this.state.path){
+		let state = store.getState();
+		if(state.path !== state.newPath){
+			let path = state.newPath;
+			store.dispatch({type: 'stop'})
 			$.post('/dir',{path},data => {
 				this.setState({
 					files: data.children,
+					isLoaded: true,
 				});
-				this.stop(data.base)
+				
 			},'json')
 		}
 				
@@ -82,12 +81,17 @@ class Index extends Component {
 				path = $dom.parent().parent().data('path');
 			}
 		}
-		store.dispatch({type: 'update',path: `/${path}`,})
-		console.log(store.getState());
+		if(path==='..') {
+			store.dispatch({type: 'uplevel'});
+		}
+		else {
+			store.dispatch({type: 'update',path,})
+		}
+		
 
-		// this.setState({
-		// 	isLoaded: false
-		// })
+		this.setState({
+			isLoaded: false
+		})
 
 		e.cancelBubble = true;
 		e.stopPropagation();
@@ -110,6 +114,15 @@ class Index extends Component {
 					</li>
 				);
 			});
+			if(store.getState().uplevel.length !== 0){
+				list.unshift((
+					<li key={`file-uplevel`} data-path='..' onClick={this.click}>
+						<span><img className="icon" src={`https://file.ourfor.top/source/blog/icons/folder-shared-open.svg`} /></span>
+						<span className="name">uplevel</span>
+					</li>
+				));
+			}
+			
 		}
 		return (
 		<>
