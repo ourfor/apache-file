@@ -35,7 +35,6 @@ app.post('/dir',bodyParser(),(req,res) => {
     res.contentType = "application/json;charset=utf-8";
     let data = list(req.body.path);
     console.log(data);
-    console.dir(data);
     res.end(JSON.stringify(data));
 });
 
