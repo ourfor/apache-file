@@ -3,6 +3,8 @@ import './sass/main.scss';
 import fileMap from './data/fileMap.json';
 import folderMap from './data/folderMap.json';
 import langMap from './data/langMap.json';
+import { Transition, animated } from 'react-spring/renderprops'
+
 
 import {createStore} from 'redux';
 
@@ -99,7 +101,7 @@ class Index extends Component {
 	}
 	
 	render(){
-		let list;
+		let list,List;
 		if(this.state.isLoaded){
 			list = this.state.files.map((v,i) => {
 				let name = v.name;
@@ -122,16 +124,33 @@ class Index extends Component {
 					</li>
 				));
 			}
-			
+
+			List = (
+				<div className="file-list-test">
+				<Transition
+				native
+				items={this.state.files}
+				keys={d => d.name}
+				from={{ transform: 'translate3d(0,-40px,0)' }}
+				leave={{ transform: 'translate3d(0,-40px,0)' }}
+				enter={{ transform: 'translate3d(0,0px,0)' }}
+				trail={100}>
+					{item => props => <animated.div key={`div-${item.name}`}>{item.name}</animated.div>}
+		  		</Transition>
+				</div>
+		  	);
 		}
 		return (
 		<>
 			<h1>Hello React, (๑′ᴗ‵๑)Ｉ Lᵒᵛᵉᵧₒᵤ❤</h1>
-			<div className="file-list">
-				<ul className="file-list">
-					{list}
-				</ul>
-			</div>
+			<section className="files">
+				<div className="file-list">
+					<ul className="file-list">
+						{list}
+					</ul>
+				</div>
+				{List}
+			</section>
 		</>
 		)
 	}

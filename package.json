@@ -1,5 +1,5 @@
 {
-  "name": "create-react-app",
+  "name": "@nost",
   "version": "1.0.0",
   "description": "the configured react development environment",
   "scripts": {
@@ -12,6 +12,9 @@
   "repository": "www.ourfor.top",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/@ourfor"
+  },
+  "directories": {
+	"dist": "dist"
   },
   "author": "ourfor",
   "license": "MIT",
@@ -56,12 +59,14 @@
     "node-sass": "^4.12.0",
     "nodemon": "^1.19.2",
     "pace": "^0.0.4",
+    "prop-types": "^15.7.2",
     "qs": "^6.8.0",
     "querystring": "^0.2.0",
     "raw-loader": "^3.1.0",
     "react-hot-loader": "^4.12.10",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
+    "react-spring": "^8.0.27",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
@@ -84,7 +89,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-plugin-import": "^1.12.1",
     "expose-loader": "^0.7.5",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.15",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   }

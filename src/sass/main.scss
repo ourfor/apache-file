@@ -7,6 +7,23 @@ h1 {
     color: blueviolet;
 }
 
+#main {
+    .files {
+        display: flex;
+
+        .file-list,.file-list-test {
+            min-width: 400px
+        }
+
+        .file-list-test {
+            margin-left: 100px;
+            height: 600px;
+            overflow: scroll;
+        }
+    }
+
+}
+
 div.file-list {
     ul.file-list {
     list-style: none;
