@@ -1,6 +1,6 @@
 {
   "name": "inost",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "the configured react development environment",
   "scripts": {
     "build": "webpack",
@@ -10,9 +10,9 @@
     "analyz": "NODE_ENV=production yarn_config_report=true yarn run build"
   },
   "repository": "www.ourfor.top",
-  "directories": {
-    "dist": "dist"
-  },
+  "files": [
+    "dist/*"
+  ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
