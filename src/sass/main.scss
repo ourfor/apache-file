@@ -11,6 +11,10 @@ h1 {
     font-style: italic;
     font-weight: $font-weight;
     color: blueviolet;
+    font-size: 1.1em;
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 #main {
@@ -57,6 +61,9 @@ div.file-list {
         overflow: hidden;
         text-overflow: ellipsis;
         padding-left: 10px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        height: fit-content;
 
         &:hover {
             cursor: pointer;

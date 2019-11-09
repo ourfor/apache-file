@@ -126,7 +126,7 @@ class Index extends Component {
 		}
 		return (
 		<>
-			<h1>Hello React, (๑′ᴗ‵๑)Ｉ Lᵒᵛᵉᵧₒᵤ❤</h1>
+			<h1>(๑′ᴗ‵๑)Ｉ Lᵒᵛᵉᵧₒᵤ❤</h1>
 			<section className="files">
 				<div className="file-list">
 					<ul className="file-list">
