@@ -89,6 +89,9 @@ class Index extends Component {
 		}
 		if(path==='..') {
 			store.dispatch({type: 'uplevel'});
+			this.setState({
+				isLoaded: false
+			})
 		} else {
 			if(type==='folder'){
 				store.dispatch({type: 'update',path,});
