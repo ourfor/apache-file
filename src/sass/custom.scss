@@ -1,0 +1,30 @@
+$copyright-gap: 20px;
+
+.copyright{
+    width: auto;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    user-select: none;
+    margin-bottom: $copyright-gap;
+    margin-top: $copyright-gap;
+
+    &>span{
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px 6px;
+
+        &:first-child{
+            background: #030307;
+            color: #fadfa3;  
+        }
+
+        &:last-child{
+            background: #dc1049;
+            color: white;
+        }
+    }
+}

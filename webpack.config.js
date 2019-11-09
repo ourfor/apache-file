@@ -8,6 +8,7 @@ const webpack = require('webpack');
 module.exports = {
 	entry: {
 		main: './src/main.jsx',
+		// font: './src/font.jsx',
 	},
 	mode: 'production',
 	plugins: [

@@ -3,15 +3,14 @@ import './sass/main.scss';
 import fileMap from './data/fileMap.json';
 import folderMap from './data/folderMap.json';
 import langMap from './data/langMap.json';
-import { Transition, animated } from 'react-spring/renderprops'
+import { createStore } from 'redux';
+import { CopyRight } from './components/custom.jsx';
 
-
-import {createStore} from 'redux';
 
 function filePath(
 	state = {
-				path: '/Desktop',
-				newPath: '/Desktop',
+				path: '/',
+				newPath: '/',
 				uplevel: [] 
 			},action){
     let uplevel;
@@ -35,7 +34,6 @@ function filePath(
 let store = createStore(filePath);
 
 class Index extends Component {
-
 	constructor(props){
 		super(props);
 		this.state = {
@@ -47,12 +45,13 @@ class Index extends Component {
 
 	componentWillMount(){
 		let path = store.getState().path;
-		$.post('/dir',{path},data => {
+		$.getJSON(`https://api.ourfor.top/file/?path=${path}`,({data}) => {
+			console.log(data);
 			this.setState({
 				isLoaded: true,
-				files: data.children,
+				files: data,
 			});
-		},'json')
+		})
 	}
 
 	componentWillUpdate(){
@@ -60,18 +59,18 @@ class Index extends Component {
 		if(state.path !== state.newPath){
 			let path = state.newPath;
 			store.dispatch({type: 'stop'})
-			$.post('/dir',{path},data => {
+			$.getJSON(`https://api.ourfor.top/file/?path=${path}`,({data}) => {
 				this.setState({
-					files: data.children,
+					files: data,
 					isLoaded: true,
 				});
 				
 			},'json')
 		}
-				
 	}
 
-	componentDidMount(){
+	componentDidUpdate(){
+		$('li[data-path]').show('slow');
 	}
 
 	click = e => {
@@ -101,7 +100,7 @@ class Index extends Component {
 	}
 	
 	render(){
-		let list,List;
+		let list;
 		if(this.state.isLoaded){
 			list = this.state.files.map((v,i) => {
 				let name = v.name;
@@ -110,7 +109,7 @@ class Index extends Component {
 					type = v.type===1?'file':'folder';
 				}
 				return (
-					<li key={`file-${i}`} data-path={name} onClick={this.click}>
+					<li key={`file-${i}`} data-path={name} onClick={this.click} style={{diaplay: 'none'}}>
 						<span><img className="icon" src={`https://file.ourfor.top/source/blog/icons/${type}.svg`} /></span>
 						<span className="name">{name}</span>
 					</li>
@@ -124,21 +123,6 @@ class Index extends Component {
 					</li>
 				));
 			}
-
-			List = (
-				<div className="file-list-test">
-				<Transition
-				native
-				items={this.state.files}
-				keys={d => d.name}
-				from={{ transform: 'translate3d(0,-40px,0)' }}
-				leave={{ transform: 'translate3d(0,-40px,0)' }}
-				enter={{ transform: 'translate3d(0,0px,0)' }}
-				trail={100}>
-					{item => props => <animated.div key={`div-${item.name}`}>{item.name}</animated.div>}
-		  		</Transition>
-				</div>
-		  	);
 		}
 		return (
 		<>
@@ -149,8 +133,8 @@ class Index extends Component {
 						{list}
 					</ul>
 				</div>
-				{List}
 			</section>
+			<CopyRight />
 		</>
 		)
 	}

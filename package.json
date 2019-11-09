@@ -1,5 +1,5 @@
 {
-  "name": "@nost",
+  "name": "inost",
   "version": "1.0.0",
   "description": "the configured react development environment",
   "scripts": {
@@ -10,11 +10,8 @@
     "analyz": "NODE_ENV=production yarn_config_report=true yarn run build"
   },
   "repository": "www.ourfor.top",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@ourfor"
-  },
   "directories": {
-	"dist": "dist"
+    "dist": "dist"
   },
   "author": "ourfor",
   "license": "MIT",
@@ -26,7 +23,10 @@
     "@fancyapps/fancybox": "^3.5.7",
     "@material-ui/core": "^4.4.0",
     "@svgr/webpack": "^4.3.2",
+    "anime": "^0.1.2",
+    "animejs": "2.2.0",
     "antd": "^3.23.1",
+    "aplayer": "^1.10.1",
     "axios": "^0.19.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
@@ -38,8 +38,10 @@
     "clean-webpack-plugin": "^3.0.0",
     "connect-history-api-fallback": "^1.6.0",
     "copy-webpack-plugin": "^5.0.4",
+    "cplayer": "^3.2.0",
     "css-loader": "^3.0.0",
     "csv-loader": "^3.0.2",
+    "echarts": "^4.2.1",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
@@ -56,6 +58,7 @@
     "json-loader": "^0.5.7",
     "jsonwebtoken": "^8.5.1",
     "loadsh": "^0.0.4",
+    "lodash.range": "^3.2.0",
     "node-sass": "^4.12.0",
     "nodemon": "^1.19.2",
     "pace": "^0.0.4",
@@ -66,12 +69,16 @@
     "react-hot-loader": "^4.12.10",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
-    "react-spring": "^8.0.27",
+    "react-spring": "9.0.0-beta.3",
+    "react-use-gesture": "5.0.0",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "regenerator-runtime": "^0.13.3",
     "sass-loader": "^7.1.0",
+    "snabbt.js": "^0.6.4",
+    "sockjs-client": "^1.4.0",
+    "stompjs": "^2.3.3",
     "style-loader": "^0.23.1",
     "url-loader": "^2.1.0",
     "webpack": "^4.35.3",
@@ -88,9 +95,44 @@
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-plugin-import": "^1.12.1",
+    "dplayer": "^1.25.0",
     "expose-loader": "^0.7.5",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.14",
+    "lodash-es": "4.17.11",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.0",
+    "resize-observer-polyfill": "^1.5.1"
+  },
+  "optionalDependencies": {
+    "@vx/gradient": "0.0.165",
+    "@vx/group": "0.0.170",
+    "@vx/hierarchy": "0.0.179",
+    "@vx/mock-data": "0.0.179",
+    "@vx/responsive": "0.0.179",
+    "@vx/scale": "0.0.179",
+    "@vx/shape": "0.0.179",
+    "classnames": "^2.2.6",
+    "d3-ease": "^1.0.5",
+    "d3-hierarchy": "^1.1.8",
+    "d3-interpolate": "^1.3.2",
+    "d3-scale": "^2.2.2",
+    "d3-shape": "^1.3.4",
+    "delay": "^4.1.0",
+    "random-unicode-emoji": "^1.0.1",
+    "react-measure": "^2.2.4",
+    "react-motion": "^0.5.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
