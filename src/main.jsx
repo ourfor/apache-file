@@ -5,7 +5,9 @@ import folderMap from './data/folderMap.json';
 import langMap from './data/langMap.json';
 import { createStore } from 'redux';
 import { CopyRight } from './components/custom.jsx';
+import pkg from '../package.json';
 
+let cdn = `${pkg.cdn}/${pkg.name}@${pkg.version}/src/icons`;
 
 function filePath(
 	state = {
@@ -124,7 +126,7 @@ class Index extends Component {
 				}
 				return (
 					<li key={`file-${i}`} data-path={name} data-type={filetype} onClick={this.click} style={{diaplay: 'none'}}>
-						<span><img className="icon" src={`https://file.ourfor.top/source/blog/icons/${type}.svg`} /></span>
+						<span><img className="icon" src={`${cdn}/${type}.svg`} /></span>
 						<span className="name">{name}</span>
 					</li>
 				);
@@ -132,7 +134,7 @@ class Index extends Component {
 			if(store.getState().uplevel.length !== 0){
 				list.unshift((
 					<li key={`file-uplevel`} data-path='..' data-type="folder" onClick={this.click}>
-						<span><img className="icon" src={`https://file.ourfor.top/source/blog/icons/folder-shared-open.svg`} /></span>
+						<span><img className="icon" src={`${cdn}/folder-shared-open.svg`} /></span>
 						<span className="name">uplevel</span>
 					</li>
 				));
