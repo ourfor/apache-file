@@ -64,6 +64,9 @@ div.file-list {
         padding-top: 3px;
         padding-bottom: 3px;
         height: fit-content;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
 
         &:hover {
             cursor: pointer;

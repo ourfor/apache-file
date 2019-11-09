@@ -76,23 +76,33 @@ class Index extends Component {
 	click = e => {
 		let $dom = $(e.target);
 		let path = $dom.data('path');
+		let type = $dom.data('type');
 		if(path===undefined){
-			path = $dom.parent().data('path');
+			$dom = $dom.parent();
+			path = $dom.data('path');
+			type = $dom.data('type');
 			if(path===undefined) {
-				path = $dom.parent().parent().data('path');
+				$dom = $dom.parent();
+				path = $dom.data('path');
+				type = $dom.data('type');
 			}
 		}
 		if(path==='..') {
 			store.dispatch({type: 'uplevel'});
-		}
-		else {
-			store.dispatch({type: 'update',path,})
+		} else {
+			if(type==='folder'){
+				store.dispatch({type: 'update',path,});
+				this.setState({
+					isLoaded: false
+				})
+			} else {
+				let base = store.getState();
+				window.open(`https://file.ourfor.top/${base.path}/${path}`);
+			}
 		}
 		
 
-		this.setState({
-			isLoaded: false
-		})
+
 
 		e.cancelBubble = true;
 		e.stopPropagation();
@@ -104,12 +114,13 @@ class Index extends Component {
 		if(this.state.isLoaded){
 			list = this.state.files.map((v,i) => {
 				let name = v.name;
+				let filetype = v.type===1?'file':'folder';
 				let type = v.type===1?fileMap[name.substring(name.lastIndexOf('.')+1)]:folderMap[name];
 				if(!type){
 					type = v.type===1?'file':'folder';
 				}
 				return (
-					<li key={`file-${i}`} data-path={name} onClick={this.click} style={{diaplay: 'none'}}>
+					<li key={`file-${i}`} data-path={name} data-type={filetype} onClick={this.click} style={{diaplay: 'none'}}>
 						<span><img className="icon" src={`https://file.ourfor.top/source/blog/icons/${type}.svg`} /></span>
 						<span className="name">{name}</span>
 					</li>
@@ -117,7 +128,7 @@ class Index extends Component {
 			});
 			if(store.getState().uplevel.length !== 0){
 				list.unshift((
-					<li key={`file-uplevel`} data-path='..' onClick={this.click}>
+					<li key={`file-uplevel`} data-path='..' data-type="folder" onClick={this.click}>
 						<span><img className="icon" src={`https://file.ourfor.top/source/blog/icons/folder-shared-open.svg`} /></span>
 						<span className="name">uplevel</span>
 					</li>
