@@ -47,13 +47,14 @@ div.file-list {
     background-color: #252526;
     color: #cccccc;
     // font-family: 'Dank Mono';
+    width: 1200px;
+    @media only screen and (max-width: 1044px){
+        width: 960px;
+    }    
     @media only screen and (max-width: 767px){
         width: 400px;
     }
-    @media only screen and (max-width: 1044px){
-        width: 960px;
-    }
-    width: 1200px;
+    
     // max-height: 600px;
     height: 100%;
     box-sizing: border-box;
