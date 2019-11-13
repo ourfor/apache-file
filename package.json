@@ -1,6 +1,7 @@
 {
   "name": "inost",
-  "version": "1.0.0",
+  "version": "1.0.5",
+  "cdn":"https://cdn.jsdelivr.net/npm",
   "description": "the configured react development environment",
   "scripts": {
     "build": "webpack",
@@ -10,8 +11,12 @@
     "analyz": "NODE_ENV=production yarn_config_report=true yarn run build"
   },
   "repository": "www.ourfor.top",
-  "directories": {
-    "dist": "dist"
+  "files": [
+    "dist/*",
+    "src/*"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
   },
   "author": "ourfor",
   "license": "MIT",
