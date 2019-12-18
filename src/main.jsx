@@ -7,6 +7,7 @@ import { createStore } from 'redux';
 import { CopyRight } from './components/custom.jsx';
 import pkg from '../package.json';
 import PATH from 'path';
+import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom';
 
 let cdn = `${pkg.cdn}`;
 
@@ -39,14 +40,20 @@ let store = createStore(filePath);
 class Index extends Component {
 	constructor(props){
 		super(props);
+		const { history,match,location } = props;
 		this.state = {
 			now: new Date(),
 			isLoaded: false,
 			ul: React.createRef(),
+			history,
+			match,
+			location
 		};
 	}
 
-	componentWillMount(){
+	componentDidMount(){
+		let {location: {pathname},history} = this.state;
+		store.dispatch({type: 'update',path: pathname});
 		let path = store.getState().path;
 		$.getJSON(`https://api.ourfor.top/file/?path=${path}`,({data}) => {
 			this.setState({
@@ -56,8 +63,10 @@ class Index extends Component {
 		})
 	}
 
-	componentWillUpdate(){
+	UNSAFE_componentWillUpdate(){
 		let state = store.getState();
+		let {history,location} = this.state;
+		console.log(location,history);
 		if(state.path !== state.newPath){
 			let path = state.newPath;
 			store.dispatch({type: 'stop'})
@@ -66,12 +75,12 @@ class Index extends Component {
 					files: data,
 					isLoaded: true,
 				});
-				
+				history.push(path);
 			},'json')
 		}
 	}
 
-	componentDidUpdate(){
+	UNSAFE_componentDidUpdate(){
 		$('li[data-path]').show('slow');
 	}
 
@@ -102,7 +111,8 @@ class Index extends Component {
 				})
 			} else {
 				let base = store.getState();
-				window.open(`https://file.ourfor.top${base.path}/${path}`);
+				let url = `https://file.ourfor.top${base.path}/${path}`
+				window.open(url);
 			}
 		}
 		
@@ -125,13 +135,15 @@ class Index extends Component {
 					type = v.type===1?'file':'folder';
 				}
 				return (
-					<li key={`file-${i}`} data-path={name} data-type={filetype} onClick={this.click} style={{diaplay: 'none'}}>
-						<span><img className="icon" src={`${cdn}/${type}.svg`} /></span>
-						<span className="name">{name}</span>
-					</li>
+					<>
+						<li key={`file-${i}`} data-path={name} data-type={filetype} onClick={this.click} style={{diaplay: 'none'}}>
+							<span><img className="icon" src={`${cdn}/${type}.svg`} /></span>
+							<span className="name">{name}</span>
+						</li>
+					 </>
 				);
 			});
-			if(store.getState().uplevel.length !== 0){
+			if(store.getState().uplevel.length !== 1){
 				list.unshift((
 					<li key={`file-uplevel`} data-path='..' data-type="folder" onClick={this.click}>
 						<span><img className="icon" src={`${cdn}/folder-shared-open.svg`} /></span>
@@ -156,4 +168,6 @@ class Index extends Component {
 	}
 }
 
-ReactDOM.render(<Index />,$('#main')[0]);
+let IndexWithRouter = withRouter(Index);
+
+ReactDOM.render(<Router><IndexWithRouter /></Router>,$('#main')[0]);
