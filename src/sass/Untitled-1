@@ -1,0 +1,6 @@
+podman run --privileged --name tomcat -d \
+-v /sys/fs/cgroup:/sys/fs/cgroup:ro \
+-v /var/www:/var/www \
+-v /var/lib/tomcat/webapps:/root \
+-p 8009:8009 \
+-t ourfor/tomcat:latest

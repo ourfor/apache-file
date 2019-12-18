@@ -6,8 +6,9 @@ import langMap from './data/langMap.json';
 import { createStore } from 'redux';
 import { CopyRight } from './components/custom.jsx';
 import pkg from '../package.json';
+import PATH from 'path';
 
-let cdn = `${pkg.cdn}/${pkg.name}@${pkg.version}/src/icons`;
+let cdn = `${pkg.cdn}`;
 
 function filePath(
 	state = {
@@ -20,7 +21,7 @@ function filePath(
 		case 'update':
 			uplevel = state.uplevel;
 			uplevel.push(state.path);
-			return {path: state.path,newPath: `${state.path}/${action.path}`,uplevel};
+			return {path: state.path,newPath: `${PATH.join(state.path,action.path)}`,uplevel};
 		case 'uplevel':
 			uplevel = state.uplevel;
 			let newPath = uplevel.pop();
@@ -48,7 +49,6 @@ class Index extends Component {
 	componentWillMount(){
 		let path = store.getState().path;
 		$.getJSON(`https://api.ourfor.top/file/?path=${path}`,({data}) => {
-			console.log(data);
 			this.setState({
 				isLoaded: true,
 				files: data,
@@ -102,7 +102,7 @@ class Index extends Component {
 				})
 			} else {
 				let base = store.getState();
-				window.open(`https://file.ourfor.top/${base.path}/${path}`);
+				window.open(`https://file.ourfor.top${base.path}/${path}`);
 			}
 		}
 		

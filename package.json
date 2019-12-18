@@ -1,7 +1,7 @@
 {
   "name": "inost",
   "version": "1.0.5",
-  "cdn":"https://cdn.jsdelivr.net/npm",
+  "cdn":"https://static.ourfor.top/www/icons",
   "description": "the configured react development environment",
   "scripts": {
     "build": "webpack",
